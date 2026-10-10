@@ -1,0 +1,6 @@
+model,strategy,dataset_version,random_state,timestamp,accuracy,macro_precision,macro_recall,macro_f1,weighted_f1
+logistic_regression,none,raw,42,2026-10-09T13:01:29+00:00,0.6615,0.5849,0.5572,0.5576,0.6278
+decision_tree,none,raw,42,2026-10-09T13:01:29+00:00,0.555,0.4782,0.4729,0.4754,0.5555
+random_forest,none,raw,42,2026-10-09T13:01:31+00:00,0.6685,0.5991,0.562,0.5651,0.6333
+knn,none,raw,42,2026-10-09T13:01:31+00:00,0.616,0.5301,0.5386,0.5313,0.6043
+svm,none,raw,42,2026-10-09T13:01:34+00:00,0.6605,0.5848,0.5447,0.5464,0.6196

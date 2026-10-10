@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# ---------------------------------------------------------------------------
+# Virtual environments
+# ---------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# ---------------------------------------------------------------------------
+# Jupyter
+# ---------------------------------------------------------------------------
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------------------
+# Environment / secrets
+# ---------------------------------------------------------------------------
+.env
+*.env
+
+# ---------------------------------------------------------------------------
+# IDE / editor
+# ---------------------------------------------------------------------------
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# ---------------------------------------------------------------------------
+# Generated artifacts
+# ---------------------------------------------------------------------------
+# Trained model binaries can be re-generated from the notebooks/scripts.
+models/*.joblib
+models/*.pkl
+
+# Generated processed data (kept out of version control; regenerate locally).
+data/processed/*
+!data/processed/.gitkeep
+
+# Generated figures. Metrics/experiment tables are small and useful to keep,
+# so they are NOT ignored by default -- adjust to taste.
+results/figures/*
+!results/figures/.gitkeep
+
+# NOTE: the raw dataset under data/raw/ is intentionally NOT ignored. This is a
+# self-contained research project that needs the CSV locally. See the README
+# ("Dataset handling") for the rationale.

@@ -1,0 +1,130 @@
+ If I want to understand the implementation of this  
+  project, provide me the sequence of file I should   
+  read.                                               
+  
+  Thought for 1m 28s (ctrl+o to expand)
+
+● Here's the order I'd read them in — it follows both
+  the code's dependency chain and the research story,
+  so each file builds on the last.
+
+  Start: orientation (the "why")
+
+  1. README.md — the research question, dataset
+     description, experiment plan (A–E), and metrics
+     rationale. Read this first so every module below
+     has context. (Note: it describes the 10,000-row 
+     data/raw/student_outcome_research_dataset.csv — 
+     the dataset the code actually uses.)
+
+  Foundation: constants everything imports
+
+  2. src/utils/config.py — seeds, split size, target
+     column (final_outcome), class labels, and all
+     paths. Every other module imports from here, so
+     read it before anything else in src/.
+
+  Data layer (bottom of the dependency stack)
+
+  3. src/data/load_data.py — how the CSV is loaded and
+     validated.
+  4. src/data/preprocessing.py — feature/target
+     separation, the stratified split, and the
+     unfitted ColumnTransformer. This is where
+     leakage-safety is designed in — the key concept
+     to grasp.
+
+  Analysis layer
+
+  5. src/analysis/imbalance.py — how the imbalance is
+     quantified (counts, ratio ≈ 4.31). This defines
+     the problem the models fight against.
+  6. src/analysis/eda.py — general exploration helpers
+     (I haven't read this one in detail, but it
+     belongs here).
+
+  Modeling layer
+
+  7. src/models/baseline.py — the 5 estimators and
+     their class_weight="balanced" variants
+     (Experiments A and B).
+  8. src/models/evaluate.py — the metrics (macro F1,
+     per-class recall, confusion matrix). Read before
+     train.py so you understand what an experiment
+     produces.
+  9. src/models/train.py — the heart of the project.
+     run_experiment() assembles preprocessing →
+     optional resampler → model into a leakage-safe
+     imbalanced-learn pipeline and ties together every
+     strategy (none / class_weight /
+     random_oversample / smote).
+
+  Visualization
+
+  10. src/visualization/plots.py — plotting helpers
+      used by the notebooks.
+
+  Putting it together (the "how to run")
+
+  11. main.py — the end-to-end smoke test. Having read
+      the modules, this reads as a clear top-level
+      script: load → split → run baseline for all
+      models → save. It shows exactly how the pieces
+      connect.
+
+  The research narrative (last)
+     fight against.
+  6. src/analysis/eda.py — general exploration
+     helpers (I haven't read this one in detail,
+     but it belongs here).
+
+  Modeling layer
+
+  7. src/models/baseline.py — the 5 estimators
+     and their class_weight="balanced" variants
+     (Experiments A and B).
+  8. src/models/evaluate.py — the metrics (macro
+     F1, per-class recall, confusion matrix).
+     Read before train.py so you understand what
+     an experiment produces.
+  9. src/models/train.py — the heart of the
+     project. run_experiment() assembles
+     preprocessing → optional resampler → model
+     into a leakage-safe imbalanced-learn
+     pipeline and ties together every strategy
+     (none / class_weight / random_oversample /
+     smote).
+
+  Visualization
+
+  10. src/visualization/plots.py — plotting
+  10. src/visualization/plots.py — plotting helpers
+      used by the notebooks.
+
+  Putting it together (the "how to run")
+
+  11. main.py — the end-to-end smoke test. Having read
+      the modules, this reads as a clear top-level
+      script: load → split → run baseline for all
+      models → save. It shows exactly how the pieces
+      connect.
+
+  The research narrative (last)
+
+  12. notebooks/01 → 08, in numeric order — data
+      understanding → EDA → preprocessing → baseline →
+      imbalance analysis → imbalance handling → model
+      comparison → final analysis. Read these last:
+      they consume the src/ modules and tell the
+      story. (Remember they're currently scaffolds —
+      correct code, but not yet executed, so no
+      outputs.)
+
+  Shortest path if you're in a hurry
+
+  If you only read five files to "get" the
+  implementation: config.py → preprocessing.py →
+  evaluate.py → train.py → main.py. That's the full
+  engine from constants to execution. The
+  data/analysis helpers and notebooks are detail and
+  narrative around that spine.
